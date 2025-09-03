@@ -240,4 +240,14 @@ const mobileMenu = document.getElementById('mobile-menu');
 mobileMenuButton.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
 });
+// This code fixes the 'form not resetting on back button' issue
+window.addEventListener('pageshow', function(event) {
+    // The 'persisted' property is true if the page is from the bfcache
+    if (event.persisted) {
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.reset();
+        }
+    }
+});
 
