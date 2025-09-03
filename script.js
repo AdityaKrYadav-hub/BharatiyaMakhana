@@ -2,7 +2,19 @@
 let cart = [];
 
 function addToCart(product, price) {
-    cart.push({ product, price, quantity: 1 });
+    // --- IMPROVEMENT ---
+    // Check if the product already exists in the cart
+    const existingProduct = cart.find(item => item.product === product);
+
+    if (existingProduct) {
+        // If it exists, just increase the quantity
+        existingProduct.quantity++;
+    } else {
+        // If it's a new product, add it to the cart
+        cart.push({ product, price, quantity: 1 });
+    }
+    // --- END IMPROVEMENT ---
+
     updateCart();
     toggleCart(); // sidebar open
 }
@@ -77,41 +89,40 @@ function toggleCart() {
     sidebar.classList.toggle("translate-x-full");
 }
 
-function checkout() {
-    if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-    }
-
-    let orderDetails = "Order Summary:\n";
-    cart.forEach(item => {
-        orderDetails += `- ${item.product} : ₹${item.price} x ${item.quantity} = ₹${item.price * item.quantity}\n`;
-    });
-    orderDetails += `\nTotal: ₹${document.getElementById("cart-total").innerText}`;
-    alert(orderDetails);
-
-    // Clear cart after checkout
-    cart = [];
-    updateCart();
-    toggleCart(); // close sidebar
-}
-
-// 📩 CONTACT FORM FUNCTIONALITY
+// 📩 CORRECT CONTACT FORM FUNCTIONALITY
 document.addEventListener("DOMContentLoaded", () => {
-    const contactForm = document.querySelector("#contact form");
+    // Make sure your form in the HTML has id="contact-form"
+    const contactForm = document.getElementById("contact-form");
 
-    contactForm.addEventListener("submit", function (e) {
-        e.preventDefault(); // prevent actual submission
+    // Check if the form actually exists on the page before adding a listener
+    if (contactForm) {
+        contactForm.addEventListener("submit", function (e) {
+            e.preventDefault(); // Stop the default page reload
 
-        // Optional: get values
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const message = document.getElementById("message").value;
+            const formData = new FormData(contactForm);
+            // This access_key must match the one in your HTML form
+            formData.append("access_key", "11b84224-7a6d-4fe0-bdac-a67cdabaff26");
 
-        alert(`✅ Thank you for contacting us!\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`);
-
-        contactForm.reset();
-    });
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Success! Your message has been sent.");
+                        contactForm.reset(); // Clear the form fields
+                    } else {
+                        console.error("Submission Error:", data);
+                        alert("Error: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Fetch Error:", error);
+                    alert("Something went wrong! Please try again later.");
+                });
+        });
+    }
 });
 
 // Initialize AOS
