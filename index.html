@@ -390,14 +390,22 @@
                 <h2 class="text-4xl font-bold text-center text-custom-green mb-8 font-lora" data-aos="fade-up">
                     Contact Us
                 </h2>
-
-                <div class="max-w-xl mx-auto bg-[#F8F5F0] p-8 rounded-lg shadow-md" data-aos="fade-up"
-                    data-aos-delay="200">
-
+    
+                <div class="max-w-xl mx-auto bg-[#F8F5F0] p-8 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="200">
+    
                     <form action="https://api.web3forms.com/submit" method="POST">
-
-                        <input type="hidden" name="access_key" value="11b84224-7a6d-4fe0-bdac-a67cdabaff26">
-
+    
+                        <!-- ✅ 1. AAPKI NAYI ACCESS KEY YAHAN DAAL DI HAI -->
+                        <input type="hidden" name="access_key" value="ef710c90-f052-4502-acdf-aa0874c3cad6">
+    
+                        <!-- ✨ 2. (IMPROVEMENT) Email ka Subject Line -->
+                        <input type="hidden" name="subject" value="New Contact Message from Bharatiya Makhana Website">
+    
+                        <!-- ✨ 3. (IMPROVEMENT) Spam se bachne ke liye -->
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+    
+    
+                        <!-- Aapke form fields (Inmein koi badlav nahi kiya gaya hai) -->
                         <div class="mb-4">
                             <label class="block text-custom-green font-semibold mb-2" for="name">Name</label>
                             <input type="text" id="name" name="name" required
@@ -413,15 +421,14 @@
                             <textarea id="message" name="message" rows="4" required
                                 class="w-full px-4 py-2 border border-custom-green rounded focus:outline-none focus:ring-2 focus:ring-custom-green"></textarea>
                         </div>
-
+    
                         <button type="submit"
                             class="w-full custom-green text-white py-3 rounded-lg font-semibold hover:opacity-90 transition duration-300">Send
                             Message</button>
                     </form>
-
+    
                     <div class="mt-8 text-center" data-aos="fade-up" data-aos-delay="400">
-                        <p class="text-custom-green font-semibold">Phone: <a href="tel:+918318804261"
-                                class="underline">+91
+                        <p class="text-custom-green font-semibold">Phone: <a href="tel:+918318804261" class="underline">+91
                                 8318804261</a></p>
                         <p class="text-custom-green font-semibold">Email: <a href="mailto:adityayadav11362@gmail.com"
                                 class="underline">adityayadav11362@gmail.com</a></p>
@@ -728,5 +735,6 @@
 </html>
 
 </body>
+
 
 </html>
